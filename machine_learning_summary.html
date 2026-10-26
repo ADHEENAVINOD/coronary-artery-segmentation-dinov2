@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Machine Learning Methodologies - Coronary Artery Segmentation</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background-color: #f9f9f9;
+        }
+        .pdf-banner {
+            background-color: #e3f2fd;
+            border-left: 5px #1976d2 solid;
+            padding: 15px;
+            margin-bottom: 30px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #1976d2;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            color: #1976d2;
+            margin: 0;
+            font-size: 28px;
+        }
+        .header p {
+            color: #666;
+            margin: 5px 0 0 0;
+            font-size: 16px;
+        }
+        .section {
+            background: #fff;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            border-top: 4px solid #1976d2;
+        }
+        .section h2 {
+            color: #1976d2;
+            margin-top: 0;
+            font-size: 20px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        .tech-card {
+            background: #f8f9fa;
+            border-left: 4px solid #47a7f5;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 4px 4px 0;
+        }
+        .tech-card h3 {
+            margin: 0 0 5px 0;
+            color: #333;
+            font-size: 16px;
+        }
+        .tech-card p {
+            margin: 0;
+            font-size: 14px;
+            color: #555;
+        }
+        .bullet-list {
+            margin: 10px 0 0 0;
+            padding-left: 20px;
+            font-size: 14px;
+            color: #555;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 12px;
+            color: #999;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+        @media print {
+            body {
+                background-color: #fff;
+                padding: 0;
+            }
+            .pdf-banner {
+                display: none;
+            }
+            .section {
+                box-shadow: none;
+                border: 1px solid #ddd;
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="pdf-banner">
+        <strong>🖨️ PDF Generation Instructions:</strong> Open this file in your web browser (Chrome, Edge, or Firefox), press <strong>Ctrl + P</strong> (or <strong>Cmd + P</strong> on Mac), and choose <strong>"Save as PDF"</strong> to generate your report document.
+    </div>
+
+    <div class="header">
+        <h1>Technical Summary: Machine Learning Methodologies</h1>
+        <p>Project: Coronary Artery Segmentation & Stenosis Detection</p>
+    </div>
+
+    <div class="section">
+        <h2>1. Self-Supervised Representation Learning (Backbone)</h2>
+        <div class="tech-card">
+            <h3>Vision Transformer (ViT) - DINOv2</h3>
+            <p><strong>Model Hub</strong>: facebook/dinov2-small (loaded via Hugging Face <code>transformers</code> library).</p>
+            <ul class="bullet-list">
+                <li>Extracts high-quality semantic visual features from artery tissue patch inputs.</li>
+                <li>Utilizes self-supervised pre-trained weights to capture visual contours, textures, and structures without requiring human-annotated labels.</li>
+                <li>Operates with frozen parameters during training to prevent overfitting on the custom dataset.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>2. Supervised Segmentation Head (Decoder)</h2>
+        <div class="tech-card">
+            <h3>Convolutional Neural Network (CNN) Decoder</h3>
+            <p><strong>Architecture</strong>: 3-layer Convolutional Segmentation Head.</p>
+            <ul class="bullet-list">
+                <li>Consists of consecutive 2D convolutions, Batch Normalization, and ReLU activations.</li>
+                <li>Decodes the extracted 384-dimensional DINOv2 features into the spatial segmentation logits.</li>
+                <li>Outputs pixel-level predictions across the 5 target classes representing vessel anatomy.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>3. Anatomy-Aware Loss Functions</h2>
+        <div class="tech-card">
+            <h3>Cross-Entropy Loss (CE)</h3>
+            <p>Evaluates pixel-by-pixel classification errors compared to the pseudo-ground truth masks.</p>
+        </div>
+        <div class="tech-card" style="border-left-color: #e91e63;">
+            <h3>clDice (Centerline Dice) Loss</h3>
+            <p>A specialized topological constraint loss function.</p>
+            <ul class="bullet-list">
+                <li>Applies soft morphological erosion and dilation (soft skeletonization) during backpropagation.</li>
+                <li>Enforces connectivity on the Media (outer wall) and Lumen (blood channel) to guarantee biologically plausible loop shapes rather than fragmented boundaries.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>4. Unsupervised Data Processing</h2>
+        <div class="tech-card" style="border-left-color: #4caf50;">
+            <h3>K-Means Clustering</h3>
+            <p>Groups deep visual feature patches into 5 structural clusters (Background, Media, Intima, Lumen, Extra) to automatically construct ground-truth annotations.</p>
+        </div>
+        <div class="tech-card" style="border-left-color: #4caf50;">
+            <h3>Principal Component Analysis (PCA)</h3>
+            <p>Reduces the 384-dimensional features to 3 principal components mapped as RGB channels to visually confirm feature grouping quality.</p>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>Generated for academic presentation and thesis reporting &copy; 2026</p>
+    </div>
+
+</body>
+</html>

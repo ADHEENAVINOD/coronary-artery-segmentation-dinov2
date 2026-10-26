@@ -1,0 +1,55 @@
+# Python & Environments
+.venv/
+env/
+venv/
+ENV/
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+build/
+dist/
+
+# Large Histopathology Datasets & Raw Slides (Exceeds GitHub 100MB limit)
+*.svs
+*.tif
+*.tiff
+*.ndpi
+*.vms
+*.vmu
+*.mrxs
+*.scn
+
+# Tensor Caches & Large NumPy files
+*.npy
+*.npz
+cache_*/
+data/
+output/
+scripts.zip
+pdf_slides_extracted/
+
+# Personal & Confidential Signatures / Attendance Sheets (Foglio Presenze)
+*sig*
+*signed*
+*crop_*
+*foglio*
+*Foglio*
+~$*
+
+# Temporary test images & intermediate files
+check_*
+clean_table_*
+oct9_*
+p1_*
+p2_*
+page_*
+test_*
+dir
+.ipynb_checkpoints
+.vscode/
+.idea/
+*.swp
+*.bak
+.gemini/
+*.tmp
