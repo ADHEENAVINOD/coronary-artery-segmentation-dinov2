@@ -60,12 +60,14 @@ Evaluated under strict **patient-stratified validation** (no slide or patch leak
 
 ## 🔬 Qualitative Validation
 
-Predictions overlaid across multi-patient regions of interest (ROIs):
+Multi-patient qualitative segmentation benchmark comparing raw histology, expert QuPath ground truth, and proposed model predictions:
 
 ![Qualitative Predictions](ppt_images/Slide_9_Qualitative_Clean_Composite.png)
 
-* **Cross-Entropy alone:** Prone to premature contour termination and false holes in the muscular wall.
-* **With clDice constraint:** Guarantees intact annular closure, preserving lumen cavity separation from surrounding adventitia.
+### Key Anatomical Observations:
+* **Continuous Ring Closure:** The muscular Media wall is segmented as an unbroken, continuous annular loop (improving from 58.0% to 94.0% intact closed rings).
+* **Precise Plaque Isolation:** Accurately separates the central hollow Lumen from the diseased, thickened Intima plaque layer across all pathology cases.
+* **Cross-Patient Generalization:** Strong boundary fidelity across concentric fibroatheroma (C18), eccentric narrowing (C2), and severe obstructive stenosis (C19) without requiring patient-specific fine-tuning.
 
 ---
 
